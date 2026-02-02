@@ -1,7 +1,7 @@
 # Портфолио — [Дышленко Александр]
 ## 🌐 Демо
 https://uucycxpuctoc.github.io/PRAC2/
-<img width="1899" height="924" alt="изображение" src="https://github.com/user-attachments/assets/4fefbde2-2571-42b2-9178-c8c816ae1865" />
+<img width="1917" height="832" alt="изображение" src="https://github.com/user-attachments/assets/a5f337ea-4450-4f0e-9da4-6a6155571499" />
 ## 📋 Описание
 Сайт с мини-игрой а именно "Кликер"
 ## 🛠 Технологии
