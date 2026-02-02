@@ -1,255 +1,64 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Мини-игры | Практическая работа</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #f5f5f5, #eaeaea);
-      color: #111;
-    }
-
-    header {
-      padding: 25px 40px;
-      border-bottom: 1px solid #ccc;
-      background: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 22px;
-      letter-spacing: 1px;
-    }
-
-    nav {
-      position: relative;
-    }
-
-    .menu-btn {
-      cursor: pointer;
-      font-weight: 600;
-      padding: 10px 16px;
-      border: 1px solid #000;
-      border-radius: 20px;
-      transition: 0.2s;
-    }
-
-    .menu-btn:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 45px;
-      background: #fff;
-      border: 1px solid #000;
-      border-radius: 14px;
-      padding: 10px;
-      min-width: 160px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-
-    .dropdown div {
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 10px;
-    }
-
-    .dropdown div:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    main {
-      min-height: calc(100vh - 80px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
-    }
-
-    .game-card {
-      display: none;
-      background: #fff;
-      padding: 30px;
-      max-width: 420px;
-      width: 100%;
-      border-radius: 24px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      animation: fadeIn 0.4s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .stats p {
-      margin: 6px 0;
-      font-size: 16px;
-    }
-
-    #clickBtn {
-      margin: 25px 0;
-      padding: 18px 45px;
-      font-size: 22px;
-      border-radius: 50px;
-      border: none;
-      background: #000;
-      color: #fff;
-      cursor: pointer;
-      transition: transform 0.1s, background 0.2s;
-    }
-
-    #clickBtn:active {
-      transform: scale(0.95);
-      background: #333;
-    }
-
-    .controls button {
-      margin: 6px;
-      padding: 10px 18px;
-      border-radius: 14px;
-      border: 1px solid #000;
-      background: transparent;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .controls button:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    #message {
-      margin-top: 15px;
-      font-weight: 600;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-игры | Практическая работа №2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="https://fav.farm/🎮">
 </head>
-
 <body>
 
-<header>
-  <h1>Практическая работа №2</h1>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Game<span>Hub</span></div>
+            <div class="dropdown">
+                <button class="dropbtn">Мини-игры <span class="arrow">▼</span></button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="showGame('clicker')">🕹 Кликер</a>
+                    <a href="#" onclick="showGame('adventure')">🗺 Генератор</a>
+                    <a href="#" onclick="showGame('guess')">🔢 Угадай число</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-  <nav>
-    <div class="menu-btn" onclick="toggleMenu()">🎮 Мини-игры</div>
-    <div class="dropdown" id="menu">
-      <div onclick="showClicker()">🖱 Кликер</div>
-      <!-- сюда потом добавим ещё игры -->
-    </div>
-  </nav>
-</header>
+    <main class="content">
+        <section id="clicker" class="game-card active">
+            <div class="badge">Задание 1</div>
+            <h2>🕹 Кликер</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><span>Счёт</span><strong id="score">0</strong></div>
+                <div class="stat-card"><span>Рекорд</span><strong id="record">0</strong></div>
+                <div class="stat-card"><span>Время</span><strong id="time">30</strong></div>
+            </div>
+            <button id="click-btn" class="btn-main">КЛИКНИ МЕНЯ!</button>
+            <button class="btn-reset" onclick="resetClicker()">Сбросить прогресс</button>
+        </section>
 
-<main>
+        <section id="adventure" class="game-card">
+            <div class="badge">Задание 2</div>
+            <h2>🗺 Генератор приключений</h2>
+            <div id="adv-out" class="adventure-box">Нажмите кнопку, чтобы создать свою уникальную историю...</div>
+            <button class="btn-main" onclick="genAdventure()">Создать приключение</button>
+            <div class="history-label">Последние находки:</div>
+            <ul id="adv-history" class="history-list"></ul>
+        </section>
 
-  <section class="game-card" id="clicker">
-    <h2>Кликер</h2>
+        <section id="guess" class="game-card">
+            <div class="badge">Задание 3</div>
+            <h2>🔢 Угадай число</h2>
+            <p>Я загадал от 1 до 100. У тебя <span id="guess-att" class="highlight">10</span> попыток.</p>
+            <div class="input-group">
+                <input type="number" id="guess-in" placeholder="00" min="1" max="100">
+                <button class="btn-main small" onclick="checkGuess()">Go!</button>
+            </div>
+            <p id="guess-msg" class="feedback-msg"></p>
+            <button id="guess-restart" class="btn-reset" onclick="startGuess()" style="display:none;">Играть снова</button>
+        </section>
+    </main>
 
-    <div class="stats">
-      <p>Очки: <span id="score">0</span></p>
-      <p>Время: <span id="time">30</span> сек</p>
-      <p>Рекорд: <span id="bestScore">0</span></p>
-    </div>
-
-    <button id="clickBtn">Клик!</button>
-
-    <div class="controls">
-      <button onclick="resetGame()">Сбросить</button>
-      <button onclick="startGame()">Начать</button>
-    </div>
-
-    <p id="message"></p>
-  </section>
-
-</main>
-
-<script>
-let score = 0;
-let timeLeft = 30;
-let timer;
-let playing = false;
-
-const scoreEl = document.getElementById("score");
-const timeEl = document.getElementById("time");
-const bestScoreEl = document.getElementById("bestScore");
-const messageEl = document.getElementById("message");
-const clickBtn = document.getElementById("clickBtn");
-const menu = document.getElementById("menu");
-
-let bestScore = localStorage.getItem("bestScore") || 0;
-bestScoreEl.textContent = bestScore;
-
-function toggleMenu() {
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-function showClicker() {
-  menu.style.display = "none";
-  document.getElementById("clicker").style.display = "block";
-}
-
-clickBtn.onclick = () => {
-  if (!playing) return;
-  score++;
-  scoreEl.textContent = score;
-};
-
-function startGame() {
-  score = 0;
-  timeLeft = 30;
-  playing = true;
-  scoreEl.textContent = score;
-  timeEl.textContent = timeLeft;
-  messageEl.textContent = "";
-
-  timer = setInterval(() => {
-    timeLeft--;
-    timeEl.textContent = timeLeft;
-    if (timeLeft === 0) endGame();
-  }, 1000);
-}
-
-function resetGame() {
-  score = 0;
-  scoreEl.textContent = score;
-}
-
-function endGame() {
-  clearInterval(timer);
-  playing = false;
-  messageEl.textContent = "Игра окончена! Очки: " + score;
-
-  if (score > bestScore) {
-    bestScore = score;
-    localStorage.setItem("bestScore", bestScore);
-    bestScoreEl.textContent = bestScore;
-    messageEl.textContent += " 🏆 Новый рекорд!";
-  }
-}
-</script>
-
+    <script src="js/script.js"></script>
 </body>
 </html>
