@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AD | Мини-игры</title>
+    <title>AD | Dark Games</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="https://fav.farm/🕹">
 </head>
 <body>
 
@@ -14,7 +13,7 @@
         <div class="nav-container">
             <div class="logo">AD</div>
             <div class="dropdown">
-                <button class="dropbtn">Мини-игры <span class="arrow">▼</span></button>
+                <button class="dropbtn">Мини-игры ▼</button>
                 <div class="dropdown-content">
                     <a href="#" onclick="showGame('clicker')">🕹 Кликер</a>
                     <a href="#" onclick="showGame('adventure')">🗺 Генератор</a>
@@ -40,22 +39,21 @@
         <section id="adventure" class="game-card">
             <div class="badge">Задание 2</div>
             <h2>🗺 Генератор приключений</h2>
-            <div id="adv-out" class="adventure-box">Готовы к новому приключению?</div>
-            <button class="btn-main" onclick="genAdventure()">Сгенерировать</button>
-            <div class="history-label">Последние истории:</div>
+            <div id="adv-out" class="adventure-box">Система готова к генерации...</div>
+            <button class="btn-main" onclick="genAdventure()">Создать историю</button>
             <ul id="adv-history" class="history-list"></ul>
         </section>
 
         <section id="guess" class="game-card">
             <div class="badge">Задание 3</div>
             <h2>🔢 Угадай число</h2>
-            <p>Число от 1 до 100. <br>Попыток: <span id="guess-att" class="highlight">10</span></p>
+            <p>Осталось попыток: <span id="guess-att" class="highlight">10</span></p>
             <div class="input-group">
-                <input type="number" id="guess-in" placeholder="0" min="1" max="100">
-                <button class="btn-main small-btn" onclick="checkGuess()">Угадать</button>
+                <input type="number" id="guess-in" placeholder="0">
+                <button class="btn-main small-btn" onclick="checkGuess()">Go</button>
             </div>
             <p id="guess-msg" class="feedback-msg"></p>
-            <button id="guess-restart" class="btn-reset" onclick="startGuess()" style="display:none;">Ещё раз</button>
+            <button id="guess-restart" class="btn-reset" onclick="startGuess()" style="display:none;">Заново</button>
         </section>
     </main>
 
