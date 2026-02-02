@@ -1,26 +1,26 @@
 :root {
-    --primary: #6366f1;
-    --primary-hover: #4f46e5;
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --text: #1e293b;
-    --gray: #64748b;
+    --bg-color: #0f172a;        /* Глубокий темный */
+    --card-bg: #1e293b;         /* Цвет карточки */
+    --primary: #818cf8;         /* Светло-фиолетовый акцент */
+    --text-main: #f8fafc;       /* Почти белый текст */
+    --text-dim: #94a3b8;        /* Серый текст */
+    --accent: #c084fc;          /* Розовый акцент */
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
+    background-color: var(--bg-color);
+    color: var(--text-main);
     margin: 0;
-    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 /* Навигация */
 .navbar {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1rem 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -31,143 +31,137 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0 20px;
 }
 
-.logo { font-weight: 800; font-size: 1.5rem; }
-.logo span { color: var(--primary); }
+.logo { 
+    font-weight: 800; 
+    font-size: 1.8rem; 
+    letter-spacing: -1px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-.dropdown { position: relative; }
 .dropbtn {
-    background: var(--primary);
-    color: white;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 12px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    padding: 10px 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
     transition: 0.3s;
 }
 
-.dropbtn:hover { background: var(--primary-hover); }
+.dropbtn:hover { background: #334155; }
 
 .dropdown-content {
     display: none;
     position: absolute;
     right: 0;
-    background: white;
-    min-width: 200px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background: var(--card-bg);
+    min-width: 180px;
     border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
     margin-top: 10px;
     overflow: hidden;
-    animation: slideDown 0.3s ease;
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
 .dropdown-content a {
-    color: var(--text);
-    padding: 12px 20px;
+    color: var(--text-main);
+    padding: 12px 16px;
     text-decoration: none;
     display: block;
-    transition: 0.2s;
 }
 
-.dropdown-content a:hover { background: #f1f5f9; color: var(--primary); }
+.dropdown-content a:hover { background: var(--primary); }
 .dropdown:hover .dropdown-content { display: block; }
 
-/* Карточки */
-.content {
-    display: flex;
-    justify-content: center;
-    padding: 60px 20px;
-}
+/* Карточки игр */
+.content { display: flex; justify-content: center; padding: 60px 20px; }
 
 .game-card {
-    background: var(--card);
+    background: var(--card-bg);
     padding: 40px;
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.05);
     width: 100%;
     max-width: 450px;
     text-align: center;
     display: none;
-    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-.game-card.active { display: block; animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.game-card.active { display: block; animation: fadeInUp 0.5s ease; }
 
-@keyframes zoomIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #eef2ff;
+    background: rgba(129, 140, 248, 0.1);
     color: var(--primary);
-    font-size: 0.7rem;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 15px;
 }
 
 /* Кнопки */
 .btn-main {
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     color: white;
     border: none;
-    padding: 18px;
-    border-radius: 16px;
+    padding: 16px;
+    border-radius: 14px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
     width: 100%;
     margin: 20px 0;
     transition: 0.3s;
-    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
 }
 
-.btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4); }
-.btn-main:active { transform: scale(0.98); }
+.btn-main:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
 .btn-reset {
     background: transparent;
-    border: 1px solid #e2e8f0;
-    padding: 10px 20px;
-    border-radius: 10px;
+    border: none;
+    color: var(--text-dim);
     cursor: pointer;
-    color: var(--gray);
-    font-size: 0.9rem;
+    text-decoration: underline;
 }
 
-/* Игровые элементы */
+/* Элементы внутри */
 .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; }
-.stat-card { background: #f8fafc; padding: 15px; border-radius: 16px; }
-.stat-card span { display: block; font-size: 0.75rem; color: var(--gray); margin-bottom: 5px; }
-.stat-card strong { font-size: 1.4rem; color: var(--primary); }
+.stat-card { background: rgba(15, 23, 42, 0.5); padding: 15px; border-radius: 18px; }
+.stat-card span { display: block; font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; }
+.stat-card strong { font-size: 1.5rem; color: var(--text-main); }
 
-.adventure-box { background: #f1f5f9; padding: 25px; border-radius: 16px; min-height: 60px; line-height: 1.6; }
-.history-list { list-style: none; padding: 0; text-align: left; font-size: 0.85rem; color: var(--gray); }
-.history-list li { padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+.adventure-box {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px dashed rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+}
+
+.history-list { list-style: none; padding: 0; font-size: 0.8rem; color: var(--text-dim); text-align: left; }
 
 input[type="number"] {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    padding: 15px;
-    border-radius: 16px;
+    background: var(--bg-color);
+    border: 2px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 12px;
+    border-radius: 12px;
     width: 80px;
-    font-size: 1.5rem;
-    font-weight: 800;
-    text-align: center;
+    font-size: 1.2rem;
     outline: none;
-    transition: 0.3s;
+    text-align: center;
 }
-
-input:focus { border-color: var(--primary); background: white; }
