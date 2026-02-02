@@ -1,108 +1,88 @@
-function showGame(id) {
-    document.querySelectorAll('.game-card').forEach(card => card.classList.remove('active'));
+// --- ЛОГИКА МЕНЮ ---
+const menuBtn = document.getElementById('menuBtn');
+const gameMenu = document.getElementById('gameMenu');
+
+menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    gameMenu.classList.toggle('show');
+});
+
+document.addEventListener('click', () => {
+    gameMenu.classList.remove('show');
+});
+
+function selectGame(id) {
+    document.querySelectorAll('.game-card').forEach(c => c.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+    gameMenu.classList.remove('show');
 }
 
-// 1. КЛИКЕР
-let points = 0, seconds = 30, timer = null, isRunning = false;
-const btn = document.getElementById('click-btn');
-const recordDisplay = document.getElementById('record');
+// --- КЛИКЕР ---
+let pts = 0, sec = 30, timer = null, active = false;
+const clickBtn = document.getElementById('click-btn');
+document.getElementById('record').innerText = localStorage.getItem('bestClick') || 0;
 
-recordDisplay.innerText = localStorage.getItem('clickRecord') || 0;
-
-function startClicker() {
-    isRunning = true;
-    timer = setInterval(() => {
-        seconds--;
-        document.getElementById('time').innerText = seconds;
-        if (seconds <= 0) {
-            clearInterval(timer);
-            isRunning = false;
-            alert("Время вышло! Результат: " + points);
-            saveRecord(points);
-            btn.disabled = true;
-        }
-    }, 1000);
-}
-
-btn.onclick = () => {
-    if (!isRunning && seconds === 30) startClicker();
-    if (seconds > 0) {
-        points++;
-        document.getElementById('score').innerText = points;
-        // Эффект "пульсации" при клике
-        btn.style.transform = 'scale(0.95)';
-        setTimeout(() => btn.style.transform = 'scale(1)', 50);
+clickBtn.onclick = () => {
+    if (!active && sec === 30) {
+        active = true;
+        timer = setInterval(() => {
+            sec--; 
+            document.getElementById('time').innerText = sec;
+            if (sec <= 0) {
+                clearInterval(timer); active = false;
+                alert("Время вышло! Ваш результат: " + pts);
+                if (pts > (localStorage.getItem('bestClick') || 0)) {
+                    localStorage.setItem('bestClick', pts);
+                    document.getElementById('record').innerText = pts;
+                }
+                clickBtn.disabled = true;
+            }
+        }, 1000);
+    }
+    if (sec > 0) {
+        pts++; 
+        document.getElementById('score').innerText = pts;
+        clickBtn.style.transform = 'scale(0.96)';
+        setTimeout(() => clickBtn.style.transform = 'scale(1)', 50);
     }
 };
 
-function saveRecord(p) {
-    const best = localStorage.getItem('clickRecord') || 0;
-    if (p > parseInt(best)) {
-        localStorage.setItem('clickRecord', p);
-        recordDisplay.innerText = p;
-    }
-}
-
 function resetClicker() {
-    clearInterval(timer);
-    points = 0; seconds = 30; isRunning = false;
+    clearInterval(timer); pts = 0; sec = 30; active = false;
     document.getElementById('score').innerText = 0;
     document.getElementById('time').innerText = 30;
-    btn.disabled = false;
+    clickBtn.disabled = false;
 }
 
-// 2. ГЕНЕРАТОР
+// --- ГЕНЕРАТОР ---
 function genAdventure() {
-    const heros = ['Рыцарь смерти', 'Призрачный маг', 'Ночной вор', 'Тень'];
-    const places = ['в бездне', 'в заброшенной цитадели', 'в мертвом городе'];
-    const bosses = ['демоном', 'древним богом', 'лордом вампиров'];
+    const heros = ['Кибер-рыцарь', 'Маг пустоты', 'Тёмный хакер'];
+    const places = ['в цифровом лесу', 'в неоновом гетто', 'в ядре процессора'];
+    const enemies = ['вирусом', 'глюком системы', 'лордом данных'];
     
-    const h = heros[Math.floor(Math.random()*heros.length)];
-    const p = places[Math.floor(Math.random()*places.length)];
-    const b = bosses[Math.floor(Math.random()*bosses.length)];
-    
-    const story = `${h} проснулся ${p} и вступил в бой с ${b}.`;
-    document.getElementById('adv-out').innerText = story;
-
-    let log = JSON.parse(localStorage.getItem('advHistory') || '[]');
-    log.unshift(story);
-    log = log.slice(0, 3);
-    localStorage.setItem('advHistory', JSON.stringify(log));
-    
-    document.getElementById('adv-history').innerHTML = log.map(i => `<li>• ${i}</li>`).join('');
+    const res = `${heros[Math.floor(Math.random()*3)]} находится ${places[Math.floor(Math.random()*3)]} и сражается с ${enemies[Math.floor(Math.random()*3)]}.`;
+    document.getElementById('adv-out').innerText = res;
 }
 
-// 3. УГАДАЙ ЧИСЛО
-let secret, attempts;
-function startGuess() {
-    secret = Math.floor(Math.random()*100)+1;
-    attempts = 10;
-    document.getElementById('guess-att').innerText = attempts;
-    document.getElementById('guess-msg').innerText = '';
-    document.getElementById('guess-restart').style.display = 'none';
-    document.getElementById('guess-in').value = '';
-}
-
+// --- УГАДАЙ ЧИСЛО ---
+let target = Math.floor(Math.random()*100)+1, att = 10;
 function checkGuess() {
     const val = parseInt(document.getElementById('guess-in').value);
-    const msg = document.getElementById('guess-msg');
     if (isNaN(val)) return;
-
-    attempts--;
-    document.getElementById('guess-att').innerText = attempts;
-
-    if (val === secret) {
-        msg.innerText = "Победа! Ты чувствуешь код!";
+    att--; 
+    document.getElementById('guess-att').innerText = att;
+    const msg = document.getElementById('guess-msg');
+    
+    if (val === target) {
+        msg.innerText = "Успех! Число угадано.";
         msg.style.color = "#4ade80";
-        document.getElementById('guess-restart').style.display = 'block';
-    } else if (attempts <= 0) {
-        msg.innerText = "Система заблокирована. Было: " + secret;
+        document.getElementById('guess-restart').style.display = 'inline-block';
+    } else if (att <= 0) {
+        msg.innerText = "Провал. Это было число: " + target;
         msg.style.color = "#f87171";
-        document.getElementById('guess-restart').style.display = 'block';
+        document.getElementById('guess-restart').style.display = 'inline-block';
     } else {
-        msg.innerText = val > secret ? "Бери ниже..." : "Бери выше...";
+        msg.innerText = val > target ? "Надо меньше..." : "Надо больше...";
         msg.style.color = "#fbbf24";
     }
 }
-startGuess();
