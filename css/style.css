@@ -1,11 +1,11 @@
 :root {
-    --bg: #0b0e14;              /* Истинный черный/угольный */
-    --card: #161b22;           /* Цвет карточки (как на GitHub Dark) */
-    --primary: #7c3aed;        /* Насыщенный фиолетовый */
-    --accent: #3b82f6;         /* Синий неон */
-    --text: #e6edf3;           /* Светло-серый текст */
-    --text-dim: #8b949e;       /* Приглушенный текст */
-    --stat-bg: #0d1117;        /* Фон внутри статов */
+    --bg: #0b0e14;
+    --card: #161b22;
+    --primary: #7c3aed;
+    --accent: #3b82f6;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --stat-bg: #0d1117;
 }
 
 body {
@@ -18,10 +18,10 @@ body {
 
 /* Навигация */
 .navbar {
-    background: rgba(22, 27, 34, 0.8);
+    background: rgba(22, 27, 34, 0.9);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid #30363d;
-    padding: 1rem 0;
+    padding: 0.8rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -44,77 +44,80 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+/* Плавное меню по клику */
+.dropdown { position: relative; }
+
 .dropbtn {
     background: var(--primary);
     color: white;
-    padding: 10px 20px;
+    padding: 10px 22px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
+    transition: 0.3s;
 }
 
 .dropdown-content {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
     position: absolute;
     right: 0;
     background: var(--card);
-    min-width: 180px;
+    min-width: 200px;
     border: 1px solid #30363d;
-    border-radius: 8px;
-    margin-top: 10px;
+    border-radius: 12px;
+    margin-top: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-content.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .dropdown-content a {
     color: var(--text);
-    padding: 12px 16px;
+    padding: 14px 20px;
     text-decoration: none;
     display: block;
+    transition: 0.2s;
 }
 
-.dropdown-content a:hover { background: #21262d; color: var(--primary); }
-.dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a:hover { background: #21262d; padding-left: 25px; color: var(--primary); }
 
-/* Карточки */
+/* Игровые карточки */
 .content { display: flex; justify-content: center; padding: 60px 20px; }
 
 .game-card {
     background: var(--card);
     padding: 40px;
-    border-radius: 24px;
+    border-radius: 28px;
     border: 1px solid #30363d;
     width: 100%;
-    max-width: 450px;
+    max-width: 420px;
     text-align: center;
     display: none;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-.game-card.active { display: block; animation: fadeIn 0.4s ease; }
+.game-card.active { display: block; animation: slideUp 0.5s ease; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.badge {
-    background: rgba(124, 58, 237, 0.15);
-    color: var(--primary);
-    padding: 4px 12px;
-    border-radius: 100px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    display: inline-block;
-}
-
-/* Кнопки */
+/* Кнопки и статы */
 .btn-main {
     background: linear-gradient(135deg, var(--primary), var(--accent));
     color: white;
     border: none;
     padding: 16px;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
@@ -123,38 +126,23 @@ body {
     transition: 0.2s;
 }
 
-.btn-main:hover { transform: translateY(-2px); filter: brightness(1.2); }
+.btn-main.small { width: auto; padding: 10px 25px; margin: 0; }
 
 .btn-reset {
-    background: transparent;
-    border: 1px solid #30363d;
-    color: var(--text-dim);
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
+    background: none; border: none; color: var(--text-dim); 
+    cursor: pointer; text-decoration: underline; font-size: 0.9rem;
 }
 
-/* Статистика */
-.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
-.stat-card { background: var(--stat-bg); padding: 15px; border-radius: 12px; border: 1px solid #30363d; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 25px 0; }
+.stat-card { background: var(--stat-bg); padding: 15px; border-radius: 14px; border: 1px solid #30363d; }
 .stat-card span { display: block; font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; }
-.stat-card strong { font-size: 1.4rem; color: #fff; }
+.stat-card strong { font-size: 1.5rem; color: #fff; }
 
-.adventure-box {
-    background: var(--stat-bg);
-    border: 1px dashed #30363d;
-    padding: 20px;
-    border-radius: 12px;
-    color: var(--text-dim);
-}
+.adventure-box { background: var(--stat-bg); padding: 20px; border-radius: 15px; border: 1px dashed #30363d; line-height: 1.5; }
+.highlight { color: var(--accent); font-weight: 800; }
+.input-row { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
 
 input[type="number"] {
-    background: var(--bg);
-    border: 1px solid #30363d;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    width: 60px;
-    text-align: center;
-    font-size: 1.2rem;
+    background: var(--bg); border: 1px solid #30363d; color: white;
+    padding: 10px; border-radius: 10px; width: 60px; text-align: center; font-size: 1.2rem;
 }
