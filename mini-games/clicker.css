@@ -1,1 +1,52 @@
+.game-card {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 25px;
+  border: 2px solid #000;
+  border-radius: 16px;
+  text-align: center;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
 
+.stats p {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+#clickBtn {
+  margin: 20px 0;
+  padding: 18px 40px;
+  font-size: 22px;
+  border-radius: 50px;
+  border: 2px solid #000;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s;
+}
+
+#clickBtn:active {
+  transform: scale(0.95);
+  background: #333;
+}
+
+.controls button {
+  margin: 5px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background: transparent;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background: #000;
+  color: #fff;
+}
+
+#message {
+  margin-top: 15px;
+  font-weight: bold;
+}
