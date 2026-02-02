@@ -13,11 +13,11 @@
         <div class="nav-container">
             <div class="logo">AD</div>
             <div class="dropdown">
-                <button class="dropbtn">Мини-игры ▼</button>
-                <div class="dropdown-content">
-                    <a href="#" onclick="showGame('clicker')">🕹 Кликер</a>
-                    <a href="#" onclick="showGame('adventure')">🗺 Генератор</a>
-                    <a href="#" onclick="showGame('guess')">🔢 Угадай число</a>
+                <button class="dropbtn" id="menuBtn">Мини-игры <span>▼</span></button>
+                <div class="dropdown-content" id="gameMenu">
+                    <a href="#" onclick="selectGame('clicker')">🕹 Кликер</a>
+                    <a href="#" onclick="selectGame('adventure')">🗺 Генератор</a>
+                    <a href="#" onclick="selectGame('guess')">🔢 Угадай число</a>
                 </div>
             </div>
         </div>
@@ -33,27 +33,26 @@
                 <div class="stat-card"><span>Время</span><strong id="time">30</strong></div>
             </div>
             <button id="click-btn" class="btn-main">КЛИКАТЬ!</button>
-            <button class="btn-reset" onclick="resetClicker()">Сбросить</button>
+            <button class="btn-reset" onclick="resetClicker()">Сбросить прогресс</button>
         </section>
 
         <section id="adventure" class="game-card">
             <div class="badge">Задание 2</div>
             <h2>🗺 Генератор приключений</h2>
-            <div id="adv-out" class="adventure-box">Система готова к генерации...</div>
-            <button class="btn-main" onclick="genAdventure()">Создать историю</button>
-            <ul id="adv-history" class="history-list"></ul>
+            <div id="adv-out" class="adventure-box">Готов к генерации истории...</div>
+            <button class="btn-main" onclick="genAdventure()">Создать приключение</button>
         </section>
 
         <section id="guess" class="game-card">
             <div class="badge">Задание 3</div>
             <h2>🔢 Угадай число</h2>
-            <p>Осталось попыток: <span id="guess-att" class="highlight">10</span></p>
-            <div class="input-group">
+            <p>Попыток осталось: <span id="guess-att" class="highlight">10</span></p>
+            <div class="input-row">
                 <input type="number" id="guess-in" placeholder="0">
-                <button class="btn-main small-btn" onclick="checkGuess()">Go</button>
+                <button class="btn-main small" onclick="checkGuess()">Go</button>
             </div>
-            <p id="guess-msg" class="feedback-msg"></p>
-            <button id="guess-restart" class="btn-reset" onclick="startGuess()" style="display:none;">Заново</button>
+            <p id="guess-msg"></p>
+            <button id="guess-restart" class="btn-reset" onclick="location.reload()" style="display:none;">Начать заново</button>
         </section>
     </main>
 
