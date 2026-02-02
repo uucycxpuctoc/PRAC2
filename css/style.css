@@ -1,0 +1,173 @@
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --gray: #64748b;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Навигация */
+.navbar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo { font-weight: 800; font-size: 1.5rem; }
+.logo span { color: var(--primary); }
+
+.dropdown { position: relative; }
+.dropbtn {
+    background: var(--primary);
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.dropbtn:hover { background: var(--primary-hover); }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    margin-top: 10px;
+    overflow: hidden;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-content a {
+    color: var(--text);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover { background: #f1f5f9; color: var(--primary); }
+.dropdown:hover .dropdown-content { display: block; }
+
+/* Карточки */
+.content {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.game-card {
+    background: var(--card);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    display: none;
+    position: relative;
+}
+
+.game-card.active { display: block; animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #eef2ff;
+    color: var(--primary);
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Кнопки */
+.btn-main {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    margin: 20px 0;
+    transition: 0.3s;
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+}
+
+.btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4); }
+.btn-main:active { transform: scale(0.98); }
+
+.btn-reset {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+/* Игровые элементы */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; }
+.stat-card { background: #f8fafc; padding: 15px; border-radius: 16px; }
+.stat-card span { display: block; font-size: 0.75rem; color: var(--gray); margin-bottom: 5px; }
+.stat-card strong { font-size: 1.4rem; color: var(--primary); }
+
+.adventure-box { background: #f1f5f9; padding: 25px; border-radius: 16px; min-height: 60px; line-height: 1.6; }
+.history-list { list-style: none; padding: 0; text-align: left; font-size: 0.85rem; color: var(--gray); }
+.history-list li { padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+
+input[type="number"] {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 16px;
+    width: 80px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus { border-color: var(--primary); background: white; }
