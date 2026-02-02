@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Портфолио | Мини-игры</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #000;
+    }
+
+    header {
+      padding: 20px;
+      border-bottom: 2px solid #000;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav li {
+      cursor: pointer;
+      position: relative;
+    }
+
+    nav li:hover ul {
+      display: block;
+    }
+
+    nav li ul {
+      display: none;
+      position: absolute;
+      top: 25px;
+      left: 0;
+      background: #fff;
+      border: 1px solid #000;
+      padding: 10px;
+    }
+
+    nav li ul li {
+      margin: 5px 0;
+    }
+
+    main {
+      padding: 30px;
+    }
+
+    .game-card {
+      max-width: 400px;
+      padding: 25px;
+      border: 2px solid #000;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    #clickBtn {
+      margin: 20px 0;
+      padding: 18px 40px;
+      font-size: 22px;
+      border-radius: 50px;
+      border: 2px solid #000;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .controls button {
+      margin: 5px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: 1px solid #000;
+      background: transparent;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Моё портфолио</h1>
+
+  <nav>
+    <ul>
+      <li>Главная</li>
+
+      <li>Мини-игры
+        <ul>
+          <li onclick="showGame()">🖱 Кликер</li>
+        </ul>
+      </li>
+
+      <li>Контакты</li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- КЛИКЕР -->
+  <section id="clicker" class="game-card" style="display:none;">
+    <h2>Кликер</h2>
+
+    <p>Очки: <span id="score">0</span></p>
+    <p>Время: <span id="time">30</span> сек</p>
+    <p>Рекорд: <span id="bestScore">0</span></p>
+
+    <button id="clickBtn">Клик!</button>
+
+    <div class="controls">
+      <button onclick="resetGame()">Сбросить</button>
+      <button onclick="startGame()">Начать</button>
+    </div>
+
+    <p id="message"></p>
+  </section>
+</main>
+
+<script>
+let score = 0;
+let timeLeft = 30;
+let timer;
+let playing = false;
+
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const bestScoreEl = document.getElementById("bestScore");
+const messageEl = document.getElementById("message");
+const clickBtn = document.getElementById("clickBtn");
+
+let bestScore = localStorage.getItem("bestScore") || 0;
+bestScoreEl.textContent = bestScore;
+
+function showGame() {
+  document.getElementById("clicker").style.display = "block";
+}
+
+clickBtn.onclick = () => {
+  if (!playing) return;
+  score++;
+  scoreEl.textContent = score;
+};
+
+function startGame() {
+  score = 0;
+  timeLeft = 30;
+  playing = true;
+  scoreEl.textContent = score;
+  timeEl.textContent = timeLeft;
+  messageEl.textContent = "";
+
+  timer = setInterval(() => {
+    timeLeft--;
+    timeEl.textContent = timeLeft;
+
+    if (timeLeft === 0) endGame();
+  }, 1000);
+}
+
+function resetGame() {
+  score = 0;
+  scoreEl.textContent = score;
+}
+
+function endGame() {
+  clearInterval(timer);
+  playing = false;
+  messageEl.textContent = "Игра окончена! Очки: " + score;
+
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem("bestScore", bestScore);
+    bestScoreEl.textContent = bestScore;
+    messageEl.textContent += " 🏆 Новый рекорд!";
+  }
+}
+</script>
+
+</body>
+</html>
